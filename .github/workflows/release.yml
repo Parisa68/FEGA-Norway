@@ -43,7 +43,6 @@ jobs:
           MAJOR=${VERSION_PARTS[0]}
           MINOR=${VERSION_PARTS[1]}
           PATCH=${VERSION_PARTS[2]}
-#          PATCH=$((PATCH + 1))
           NEW_LOCALEGA_TSD_PROXY_VERSION="$MAJOR.$MINOR.$PATCH"
           echo "new_localega_tsd_proxy_version=$NEW_LOCALEGA_TSD_PROXY_VERSION" >> $GITHUB_OUTPUT
       - name: Update version in localega_tsd_proxy's build.gradle.kts
@@ -135,7 +134,6 @@ jobs:
           MAJOR=${VERSION_PARTS[0]}
           MINOR=${VERSION_PARTS[1]}
           PATCH=${VERSION_PARTS[2]}
-#          PATCH=$((PATCH + 1))
           NEW_MQ_INTERCEPTOR_VERSION="$MAJOR.$MINOR.$PATCH"
           echo "new_mq_interceptor_version=$NEW_MQ_INTERCEPTOR_VERSION" >> $GITHUB_OUTPUT
       - name: Update version in mq-interceptor's build.gradle.kts
