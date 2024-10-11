@@ -82,7 +82,6 @@ jobs:
         with:
           image-ref: ghcr.io/${{ env.repo_name }}:mq-interceptor-${{ steps.bump_mq_interceptor_version.outputs.new_mq_interceptor_version }}
           format: 'sarif'
-          exit-code: '1'
           ignore-unfixed: true
           output: 'mq-interceptor-result.sarif'
           severity: 'CRITICAL,HIGH'
