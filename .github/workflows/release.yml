@@ -78,12 +78,7 @@ jobs:
           echo "new_clearinghouse_version=$NEW_CLEARINGHOUSE_VERSION" >> $GITHUB_OUTPUT
       - name: Update version in clearinghouse's build.gradle.kts
         run: sed -i "s#version = \".*\"#version = \"${{ steps.bump_clearinghouse_version.outputs.new_clearinghouse_version }}\"#" lib/clearinghouse/build.gradle.kts
-      - name: Release clearinghouse
-        run: |
-          ./gradlew :lib:clearinghouse:build
-          ./gradlew :lib:clearinghouse:publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 #      - name: Commit and Push Changes
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
