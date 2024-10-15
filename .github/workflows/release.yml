@@ -5,14 +5,22 @@ on:
       - closed
 
 jobs:
-  release:
-    if: github.event.pull_request.merged == true
+ print-readme:
     runs-on: ubuntu-latest
     steps:
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          tag_name: test
-          prerelease: false
-          name: "FEGA Norway"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Print README.md
+        run: cat README.md
+#   release:
+#     if: github.event.pull_request.merged == true
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Create GitHub release
+#         uses: softprops/action-gh-release@v2
+#         with:
+#           token: "${{ secrets.GITHUB_TOKEN }}"
+#           tag_name: test
+#           prerelease: false
+#           name: "FEGA Norway"
