@@ -71,7 +71,7 @@ jobs:
         run: |
           CLEARINGHOUSE_VERSION="${{ steps.version_clearinghouse.outputs.clearinghouse_version }}"
           VERSION_PARTS=(${CLEARINGHOUSE_VERSION//./ })
-          MAJOR=${VERSION_PARTS[0]}
+          MAJOR=10
           MINOR=${VERSION_PARTS[1]}
           PATCH=${VERSION_PARTS[2]}
           NEW_CLEARINGHOUSE_VERSION="$MAJOR.$MINOR.$PATCH"
