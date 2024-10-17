@@ -6,7 +6,7 @@ plugins {
     id("jsonwebtoken")
     id("okhttp")
 }
-  
+
 group = "no.elixir"
 version = "2.0.2"
 
