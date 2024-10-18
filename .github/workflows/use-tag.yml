@@ -1,1 +1,20 @@
+name: Main Workflow
 
+on:
+  push:
+
+jobs:
+  use-reusable-workflow:
+    uses: ./.github/workflows/use-tag.yml
+    with:
+      component_name: "clearinghouse"  # Pass the component name
+
+  use-latest-version:
+    runs-on: ubuntu-latest
+    needs: use-reusable-workflow
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Use fetched version
+        run: echo "The new version for cmp1 is ${{ steps.use-reusable-workflow.outputs.new_version }}"
