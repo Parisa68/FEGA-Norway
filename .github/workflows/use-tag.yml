@@ -5,7 +5,7 @@ on:
 
 jobs:
   use-reusable-workflow:
-    uses: ./.github/workflows/use-tag.yml
+    uses: ./.github/workflows/reusable-tag.yml
     with:
       component_name: "clearinghouse"  # Pass the component name
 
