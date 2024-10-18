@@ -8,10 +8,17 @@ on:
         description: "The name of the component"
         required: true
         type: string
+    outputs:
+      new_version:
+        description: "The new incremented version for the component"
+        value: ${{ jobs.get-latest-tag.outputs.new_version }}
+          
 
 jobs:
   get-latest-tag:
     runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.set_output.outputs.new_version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -39,5 +46,6 @@ jobs:
           echo "New version for $component_name: $new_version"
           echo "new_version=$new_version" >> $GITHUB_ENV
 
-      - name: Set output for new version
-        run: echo "::set-output name=new_version::${{ env.new_version }}"
+      - name: Set output for the reusable workflow
+        id: set_output
+        run: echo "new_version=${{ env.new_version }}" >> $GITHUB_OUTPUT
