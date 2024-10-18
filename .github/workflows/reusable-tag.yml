@@ -11,6 +11,7 @@ on:
     outputs:
       new_version:
         description: "The new incremented version for the component"
+        value: ${{ jobs.get-latest-tag.outputs.new_version }}
           
 
 jobs:
