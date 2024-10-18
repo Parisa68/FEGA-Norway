@@ -8,6 +8,10 @@ on:
         description: "The name of the component"
         required: true
         type: string
+    outputs:
+      new_version:
+        description: "The new incremented version for the component"
+        value: ${{ steps.set_output.outputs.new_version }}
 
 jobs:
   get-latest-tag:
