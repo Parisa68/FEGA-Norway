@@ -42,5 +42,6 @@ jobs:
           echo "New version for $component_name: $new_version"
           echo "new_version=$new_version" >> $GITHUB_ENV
 
-      - name: Set output for new version
-        run: echo "::set-output name=new_version::${{ env.new_version }}"
+      - name: Set output for the reusable workflow
+        id: set_output
+        run: echo "new_version=${{ env.new_version }}" >> $GITHUB_OUTPUT
