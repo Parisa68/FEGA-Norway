@@ -1,0 +1,43 @@
+
+name: Fetch Latest Component Version
+
+on:
+  workflow_call:
+    inputs:
+      component_name:
+        description: "The name of the component"
+        required: true
+        type: string
+
+jobs:
+  get-latest-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch all tags
+        run: git fetch --tags
+
+      - name: Get latest tag for the component
+        id: get_tag
+        run: |
+          component_name="${{ inputs.component_name }}"
+          
+          latest_tag=$(git tag --list "$component_name-*" | sort -V | tail -n 1)
+
+          if [ -z "$latest_tag" ]; then
+            new_version="1.0.0"
+          else
+            version_part=${latest_tag#"$component_name-"}
+            IFS='.' read -r major minor patch <<< "$version_part"
+            
+            new_version="$major.$minor.$((patch + 1))"
+          fi
+
+          echo "Latest tag for $component_name: $latest_tag"
+          echo "New version for $component_name: $new_version"
+          echo "new_version=$new_version" >> $GITHUB_ENV
+
+      - name: Set output for new version
+        run: echo "::set-output name=new_version::${{ env.new_version }}"
