@@ -7,7 +7,7 @@ jobs:
   use-reusable-workflow:
     uses: ./.github/workflows/reusable-tag.yml
     with:
-      component_name: "clearinghouse"  # Pass the component name
+      component_name: "clearinghouse"  
 
   use-latest-version:
     runs-on: ubuntu-latest
