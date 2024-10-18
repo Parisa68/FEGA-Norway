@@ -1,0 +1,27 @@
+name: Fetch Latest Component Version
+
+on:
+  push: 
+
+jobs:
+  get-latest-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch all tags
+        run: git fetch --tags
+
+      - name: Get latest tag 
+        id: get_tag
+        run: |
+          component_name="clearinghouse"
+          
+          latest_tag=$(git tag --list "$component_name-*" | sort -V | tail -n 1)
+
+          echo "Latest tag for $component_name: $latest_tag"
+          echo "latest_tag=$latest_tag" >> $GITHUB_ENV
+
+      - name: Output the latest tag
+        run: echo "The latest tag is ${{ env.latest_tag }}"
