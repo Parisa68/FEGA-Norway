@@ -1,20 +1,15 @@
 release:
     github:
-        owner: ELIXIR-NO
-        name: Parisa68
+        owner: Parisa68
+        name: FEGA-Norway
 
 builds:
     - goos:
           - darwin
-          - linux
-          - windows
       goarch:
           - amd64
-          - arm
-          - arm64
       goarm:
           - "6"
-          - "7"
 
 archives:
     - name_template: >-
