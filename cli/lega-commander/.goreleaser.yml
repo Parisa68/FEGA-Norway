@@ -1,7 +1,7 @@
 release:
     github:
         owner: ELIXIR-NO
-        name: FEGA-Norway
+        name: Parisa68
 
 builds:
     - goos:
