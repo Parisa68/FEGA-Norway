@@ -10,7 +10,7 @@ builds:
           - amd64
       goarm:
           - "6"
-
+  
 archives:
     - name_template: >-
           {{- .Binary }}_
