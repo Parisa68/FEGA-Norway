@@ -1,16 +1,22 @@
 release:
     github:
-        owner: Parisa68
+        owner: ELIXIR-NO
         name: FEGA-Norway
 
+project_name: lega-commander
 builds:
     - goos:
           - darwin
+          - linux
+          - windows
       goarch:
           - amd64
+          - arm
+          - arm64
       goarm:
           - "6"
-  
+          - "7"
+
 archives:
     - name_template: >-
           {{- .Binary }}_
