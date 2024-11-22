@@ -1,3 +1,4 @@
+version: 2
 release:
     github:
         owner: Parisa68
@@ -5,7 +6,7 @@ release:
   
 project_name: lega-commander
 monorepo:
-    tag_prefix:lega-cmd-
+    tag_prefix: lega-cmd-
 builds:
     - goos:
           - darwin
