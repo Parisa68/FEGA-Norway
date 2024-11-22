@@ -2,7 +2,7 @@ release:
     github:
         owner: Parisa68
         name: FEGA-Norway
-    name_template: "{{.ProjectName}}-v{{.Version}}
+    name_template: "{{.ProjectName}}-{{.Version}}-assets"
 
 project_name: lega-commander
 
