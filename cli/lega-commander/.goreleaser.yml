@@ -1,6 +1,6 @@
 release:
     github:
-        owner: ELIXIR-NO
+        owner: Parisa68
         name: FEGA-Norway
 
 project_name: lega-commander
