@@ -356,13 +356,13 @@ jobs:
       #     name: "Beta"
       #     body: "This is a pre-release version for testing purposes."
           
-      - name: Create GitHub release
-        if: success()
-        uses: softprops/action-gh-release@v2
-        with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-          tag_name: "lega-commander-${{ steps.bump_lega_commander_version.outputs.new_lega_commander_version }}"
-          prerelease: false
+      # - name: Create GitHub release
+      #   if: success()
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     token: "${{ secrets.GITHUB_TOKEN }}"
+      #     tag_name: "lega-commander-${{ steps.bump_lega_commander_version.outputs.new_lega_commander_version }}"
+      #     prerelease: false
 
   get-new-tag-e2eTests:
     needs: detect-changes
