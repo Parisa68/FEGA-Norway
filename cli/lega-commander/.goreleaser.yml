@@ -7,7 +7,6 @@ release:
 project_name: lega-commander
 monorepo:
   tag_prefix: lega-cmd-
-    dir: cli/lega-commander
 builds:
     - goos:
           - darwin
