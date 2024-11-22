@@ -2,7 +2,7 @@ release:
     github:
         owner: Parisa68
         name: FEGA-Norway
-
+  
 project_name: lega-commander
 builds:
     - goos:
