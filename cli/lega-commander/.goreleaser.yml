@@ -3,6 +3,7 @@ release:
         owner: Parisa68
         name: FEGA-Norway
     name_template: "{{.ProjectName}}-{{.Version}}-assets"
+    tag: "{{.ProjectName}}-{{.Version}}-assets"
 
 project_name: lega-commander
 
