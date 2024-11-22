@@ -4,6 +4,8 @@ release:
         name: FEGA-Norway
   
 project_name: lega-commander
+monorepo:
+    tag_prefix:lega-cmd-
 builds:
     - goos:
           - darwin
