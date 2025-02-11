@@ -390,3 +390,5 @@ jobs:
       new_version: "${{ needs.get-new-tag-fega-norway.outputs.new_version }}"
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      
