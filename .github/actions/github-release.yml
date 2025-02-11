@@ -1,0 +1,22 @@
+name: "Create GitHub Release"
+description: "Release the source code to GitHub"
+inputs:
+  component:
+    description: "Component name"
+    required: true
+  new_version:
+    description: "New version"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Bump patch version
+      id: bump_version
+      run: echo "new_version=${{ inputs.new_version }}" >> $GITHUB_ENV
+      shell: bash
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v2
+      with:
+        token: "${{ secrets.GITHUB_TOKEN }}"
+        tag_name: ${{ inputs.component }}-${{ env.new_version }}
+        prerelease: false
