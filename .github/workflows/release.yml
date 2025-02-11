@@ -384,7 +384,7 @@ jobs:
       component_name: "FEGA-Norway"
   release-fega-norway:
     needs: get-new-tag-fega-norway
-    uses: ./.github/workflows/github-release.yml
+    uses: ./.github/actions/github-release.yml
     with:
       component: "FEGA-Norway"
       new_version: "${{ needs.get-new-tag-fega-norway.outputs.new_version }}"
