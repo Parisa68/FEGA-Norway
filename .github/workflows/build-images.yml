@@ -6,10 +6,9 @@ on:
       - 'services/mq-interceptor/**'
     branches:
       - main
-
+env:
+    repo_name: $(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
 jobs:
-  env:
-    repo_name=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
   detect-changes:
     runs-on: ubuntu-latest
     outputs:
