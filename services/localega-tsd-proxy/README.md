@@ -16,6 +16,8 @@ The Local EGA TSD Proxy service is a component of the FEGA-Norway stack that fac
 
 ## Prerequisites
 
+
+
 - JDK 21
 - Docker (for containerization)
 - PostgreSQL database
