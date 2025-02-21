@@ -55,7 +55,7 @@ public enum Clearinghouse {
    * @param openIDConfigurationURL ".well-known/openid-configuration" full URL.
    * @return List of GA4GH Visas.
    */
-  public Collection<Visa> getVisas(String accessToken, String openIDConfigurationURL) {
+      public Collection<Visa> getVisas(String accessToken, String openIDConfigurationURL) {
     return getVisaTokens(accessToken, openIDConfigurationURL).stream()
         .map(this::getVisa)
         .filter(Optional::isPresent)
