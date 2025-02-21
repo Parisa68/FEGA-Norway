@@ -10,7 +10,7 @@ on:
 
 jobs:
   analyze:
-    if: github.event.pull_request.merged == true
+      if: github.event.pull_request.merged == true
     name: Analyze
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
