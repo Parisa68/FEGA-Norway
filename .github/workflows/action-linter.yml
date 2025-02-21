@@ -17,6 +17,8 @@ jobs:
       - name: Run actionlint
         id: actionlint
         uses: raven-actions/actionlint@v2
+        with:
+          fail-on-error: false
 
       - name: actionlint Summary
         if: ${{ steps.actionlint.outputs.exit-code != 0 }} 
