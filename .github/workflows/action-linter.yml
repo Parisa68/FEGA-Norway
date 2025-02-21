@@ -16,5 +16,3 @@ jobs:
         
       - name: Run actionlint
         uses: raven-actions/actionlint@v2
-        with:
-          files: ".github/workflows"
