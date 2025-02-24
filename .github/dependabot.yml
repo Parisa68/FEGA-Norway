@@ -1,4 +1,10 @@
 version: 2
+registries:
+  ghcr:
+    type: "docker-registry"
+    url: "https://ghcr.io"
+    username: "${{ secrets.GHCR_REGISTRY_ACTOR }}"
+    password: "${{ secrets.GHCR_REGISTRY_TOKEN }}"
 updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
@@ -38,12 +44,8 @@ updates:
     directory: "/e2eTests"
     schedule:
       interval: "monthly"
-    registries:
-      ghcr:
-        type: "docker-registry"
-        url: "https://ghcr.io"
-        username: "${{ secrets.GHCR_REGISTRY_ACTOR }}"
-        password: "${{ secrets.GHCR_REGISTRY_TOKEN }}"
+    registries: 
+      - ghcr
     allow:
       - dependency-name: "ghcr.io/neicnordic/sensitive-data-archive"
         versions: [ "vx.x.x", "vx.x.x-doa", "vx.x.x-rabbitmq", "vx.x.x-postgres" ]
