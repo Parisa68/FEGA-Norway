@@ -34,6 +34,28 @@ updates:
       timezone: "Europe/Oslo"
     commit-message:
       prefix: "[e2eTests]"
+    - package-ecosystem: docker
+    directory: "/e2eTests"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Oslo"
+    commit-message:
+      prefix: "[e2eTests]"
+  - package-ecosystem: docker
+    directory: "/e2eTests"
+    schedule:
+      interval: "monthly"
+    registries:
+      ghcr:
+        type: "docker-registry"
+        url: "https://ghcr.io"
+        username: "${{ secrets.GHCR_REGISTRY_ACTOR }}"
+        password: "${{ secrets.GHCR_REGISTRY_TOKEN }}"
+    allow:
+      - dependency-name: "ghcr.io/neicnordic/sensitive-data-archive"
+        versions: [ "vx.x.x", "vx.x.x-doa", "vx.x.x-rabbitmq", "vx.x.x-postgres" ]
 
   # buildSrc
   - package-ecosystem: gradle
