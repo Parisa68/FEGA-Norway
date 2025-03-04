@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: build  crypt4gh
         run: |
-          ./gradlew :lib:crypt4gh:publish -Pversion=1.0.0-SNAPSHOT --dry-run
+          ./gradlew :lib:crypt4gh:publish --dry-run
 
   clearinghouse:
 #    needs: detect-changes
