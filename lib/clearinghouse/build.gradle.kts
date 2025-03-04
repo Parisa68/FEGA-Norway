@@ -40,7 +40,7 @@ publishing {
     repositories {
         maven {
             name = "fega-norway-clearinghouse"
-            url = uri("https://maven.pkg.github.com/ELIXIR-NO/FEGA-Norway")
+            url = uri("https://maven.pkg.github.com/Parisa68/FEGA-Norway")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
