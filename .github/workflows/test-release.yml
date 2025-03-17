@@ -1,0 +1,65 @@
+name: Publish-test
+on:
+  push:
+
+jobs:
+  detect-changes:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    outputs:
+      lega-commander: ${{ steps.changes.outputs.lega-commander }}
+      e2eTests: ${{ steps.changes.outputs.e2eTests }}
+      clearinghouse: ${{ steps.changes.outputs.clearinghouse }}
+      crypt4gh: ${{ steps.changes.outputs.crypt4gh }}
+      tsd-file-api-client: ${{ steps.changes.outputs.tsd-file-api-client }}
+      cega-mock: ${{ steps.changes.outputs.cega-mock }}
+      localega-tsd-proxy: ${{ steps.changes.outputs.localega-tsd-proxy }}
+      mq-interceptor: ${{ steps.changes.outputs.mq-interceptor }}
+      tsd-api-mock: ${{ steps.changes.outputs.tsd-api-mock }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            lega-commander:
+              - 'cli/lega-commander/**'
+            e2eTests:
+              - 'e2eTests/**'
+            clearinghouse:
+              - 'lib/clearinghouse/**'
+            crypt4gh:
+              - 'lib/crypt4gh/**'
+            tsd-file-api-client:
+              - 'lib/tsd-file-api-client/**'
+            cega-mock:
+              - 'services/cega-mock/**'
+            localega-tsd-proxy:
+              - 'services/localega-tsd-proxy/**'
+            mq-interceptor:
+              - 'services/mq-interceptor/**'
+            tsd-api-mock:
+              - 'services/tsd-api-mock/**'
+  
+  get-new-tag:
+    needs: detect-changes
+    strategy:
+      matrix:
+        component: [localega-tsd-proxy, cega-mock, mq-interceptor]
+    if: ${{ contains(toJson(needs.detect-changes.outputs), matrix.component) }}
+    uses: ./.github/workflows/read-new-version.yml
+    with:
+      component_name: ${{ matrix.component }}
+
+  publish:
+    needs: get-new-tag
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        component: [localega-tsd-proxy, cega-mock, mq-interceptor]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bump patch version for ${{ matrix.component }}
+        id: bump_version
+        run: echo "new_version=${{ needs.get-new-tag.outputs.new_version }}"
