@@ -37,7 +37,7 @@ jobs:
           else
             version_part=${latest_tag#"$component_name-"}
             IFS='.' read -r major minor patch <<< "$version_part"
-            commits=$(git log "$latest_tag"..HEAD --pretty=format:"%h %s")
+            commits=$(git log "$latest_tag"..HEAD --no-merges --pretty=format:"%h %s")
             echo "$commits"
             if echo "$commits" | grep -q "#major"; then
               new_version="$((major + 1)).0.0"
