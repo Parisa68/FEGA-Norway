@@ -12,7 +12,6 @@ on:
         description: "The new incremented version for the component"
         value: ${{ jobs.get-latest-tag.outputs.new_version }}
 
-
 jobs:
   get-latest-tag:
     runs-on: ubuntu-latest
@@ -25,29 +24,44 @@ jobs:
       - name: Fetch all tags
         run: git fetch --tags
 
-      - name: Give a new tag for the component
+      - name: Get latest tag and determine bump
         id: get_tag
         run: |
           component_name="${{ inputs.component_name }}"
           
           latest_tag=$(git tag --list "$component_name-*" | sort -V | tail -n 1)
-
           if [ -z "$latest_tag" ]; then
             new_version="0.0.1"
           else
             version_part=${latest_tag#"$component_name-"}
             IFS='.' read -r major minor patch <<< "$version_part"
-            commits=$(git log "$latest_tag"..HEAD --no-merges --pretty=format:"%h %s")
-            echo "$commits"
-            if echo "$commits" | grep -q "#major"; then
-              new_version="$((major + 1)).0.0"
-            elif echo "$commits" | grep -q "#minor"; then
-              new_version="$major.$((minor + 1)).0"
-            else
-              new_version="$major.$minor.$((patch + 1))"
-            fi
+            
+            commits_since_last_tag=$(git log "$latest_tag..HEAD" --oneline)
+            bump_type="patch"
+            echo "Commmmitttssss: $commits_since_last_tag"
+            for commit in "$commits_since_last_tag"; do
+              if [[ "$commit" == *"#major"* ]]; then
+                bump_type="major"
+                break
+              elif [[ "$commit" == *"#minor"* ]]; then
+                bump_type="minor"
+                break
+              fi
+            done
+
+            case "$bump_type" in
+              "major")
+                new_version="$((major + 1)).0.0"
+                ;;
+              "minor")
+                new_version="$major.$((minor + 1)).0"
+                ;;
+              "patch")
+                new_version="$major.$minor.$((patch + 1))"
+                ;;
+            esac
           fi
-          
+
           echo "Latest tag for $component_name: $latest_tag"
           echo "New version for $component_name: $new_version"
           echo "new_version=$new_version" >> $GITHUB_ENV
