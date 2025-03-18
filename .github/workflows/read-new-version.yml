@@ -37,10 +37,17 @@ jobs:
           else
             version_part=${latest_tag#"$component_name-"}
             IFS='.' read -r major minor patch <<< "$version_part"
-          
-            new_version="$major.$minor.$((patch + 1))"
+            commits=$(git log "$latest_tag"..HEAD --pretty=format:"%h %s")
+            echo "$commits"
+            if echo "$commits" | grep -q "#major"; then
+              new_version="$((major + 1)).0.0"
+            elif echo "$commits" | grep -q "#minor"; then
+              new_version="$major.$((minor + 1)).0"
+            else
+              new_version="$major.$minor.$((patch + 1))"
+            fi
           fi
-
+          
           echo "Latest tag for $component_name: $latest_tag"
           echo "New version for $component_name: $new_version"
           echo "new_version=$new_version" >> $GITHUB_ENV
