@@ -17,7 +17,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
-
 dependencies {
     implementation("org.apache.commons:commons-collections4:4.4")
     implementation("org.apache.commons:commons-lang3:3.17.0")
