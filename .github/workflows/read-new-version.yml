@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensure full commit history
 
       - name: Fetch all tags
         run: git fetch --tags
@@ -30,24 +32,28 @@ jobs:
           component_name="${{ inputs.component_name }}"
           
           latest_tag=$(git tag --list "$component_name-*" | sort -V | tail -n 1)
+          echo "Latest tag found: $latest_tag" # Debugging: Print latest tag
+
           if [ -z "$latest_tag" ]; then
             new_version="0.0.1"
           else
             version_part=${latest_tag#"$component_name-"}
             IFS='.' read -r major minor patch <<< "$version_part"
             
-            commits_since_last_tag=$(git log "$latest_tag..HEAD" --oneline)
-            bump_type="patch"
-            echo "Commmmitttssss: $commits_since_last_tag"
-            for commit in "$commits_since_last_tag"; do
-              if [[ "$commit" == *"#major"* ]]; then
+            commits_since_last_tag=$(git log "$latest_tag..HEAD" --no-merges --pretty=format:"%s")
+
+            echo "Commits since $latest_tag:"
+            echo "$commits_since_last_tag"
+
+            bump_type="patch" # Default bump
+            while IFS= read -r commit_msg; do
+              if [[ "$commit_msg" == *"#major"* ]]; then
                 bump_type="major"
                 break
-              elif [[ "$commit" == *"#minor"* ]]; then
+              elif [[ "$commit_msg" == *"#minor"* ]]; then
                 bump_type="minor"
-                break
               fi
-            done
+            done <<< "$commits_since_last_tag"
 
             case "$bump_type" in
               "major")
@@ -62,7 +68,6 @@ jobs:
             esac
           fi
 
-          echo "Latest tag for $component_name: $latest_tag"
           echo "New version for $component_name: $new_version"
           echo "new_version=$new_version" >> $GITHUB_ENV
 
