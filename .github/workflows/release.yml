@@ -68,6 +68,10 @@ jobs:
           ./gradlew :lib:clearinghouse:publish -Pversion=${{ steps.bump_clearinghouse_version.outputs.new_clearinghouse_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate changelog
+        run: |
+          mkdir -p /tmp/changelogs
+          ./gradlew :lib:clearinghouse:generateChangelog --outputDir=/tmp/changelogs
       - name: Create GitHub release
         if: success()
         uses: softprops/action-gh-release@v2
