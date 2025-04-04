@@ -24,4 +24,10 @@ gradlePlugin {
             implementationClass = "org.gradle.transform.javamodules.ExtraModuleInfoPlugin"
         }
     }
+
+        // Register our changelog plugin
+        register("changelog") {
+            id = "no.elixir.fega.changelog"
+            implementationClass = "no.elixir.fega.ChangelogPlugin"
+        }
 }
