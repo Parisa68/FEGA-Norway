@@ -36,6 +36,8 @@ jobs:
         git checkout "$HEAD_REF"
         ./gradlew dependencies --no-daemon > "$TMP_AFTER"
 
+        echo "TMP_BEFORE: $TMP_BEFORE"
+        echo "TMP_AFTER: $TMP_AFTER"
         
         if diff "$TMP_BEFORE" "$TMP_AFTER"; then
           echo "no"
