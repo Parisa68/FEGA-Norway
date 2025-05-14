@@ -1,0 +1,44 @@
+name: Compare Dependencies
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  check-deps:
+    if: github.event.pull_request == true
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout pr branch
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: Compare Gradle Dependencies
+      run: |
+        BASE_REF=${{ github.event.pull_request.base.sha }}
+        HEAD_REF=${{ github.event.pull_request.head.sha }}
+
+        TMP_BEFORE=$(mktemp)
+        TMP_AFTER=$(mktemp)
+
+        git checkout "$BASE_REF"
+        ./gradlew dependencies --no-daemon > "$TMP_BEFORE"
+
+        echo "Checking out head ref: $HEAD_REF"
+        git checkout "$HEAD_REF"
+        ./gradlew dependencies --no-daemon > "$TMP_AFTER"
+
+        
+        if diff "$TMP_BEFORE" "$TMP_AFTER"; then
+          echo "no"
+        else
+          echo "yes"
+        fi
