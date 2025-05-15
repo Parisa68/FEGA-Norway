@@ -26,21 +26,18 @@ jobs:
         BASE_REF=${{ github.event.pull_request.base.sha }}
         HEAD_REF=${{ github.event.pull_request.head.sha }}
 
-        TMP_BEFORE=$(mktemp)
-        TMP_AFTER=$(mktemp)
-
         git checkout "$BASE_REF"
-        ./gradlew :lib:clearinghouse:dependencies > "$TMP_BEFORE"
+        ./gradlew :lib:clearinghouse:dependencies > /tmp/before.txt
 
         echo "Checking out head ref: $HEAD_REF"
         git checkout "$HEAD_REF"
-        ./gradlew :lib:clearinghouse:dependencies > "$TMP_AFTER"
+        ./gradlew :lib:clearinghouse:dependencies > /tmp/after.txt
 
         echo "/////////////////////////////////"
-        echo "TMP_BEFORE: $TMP_BEFORE"
-        echo "TMP_AFTER: $TMP_AFTER"
+        cat /tmp/before.txt
+        cat /tmp/after.txt
         
-        if diff "$TMP_BEFORE" "$TMP_AFTER"; then
+        if diff /tmp/before.txt /tmp/after.txt; then
           echo "no"
         else
           echo "yes"
