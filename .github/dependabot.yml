@@ -43,15 +43,20 @@ updates:
       prefix: "[e2eTests]"
     ignore:
       - dependency-name: "ghcr.io/neicnordic/sensitive-data-archive"
-  - package-ecosystem: docker
+      
+ - package-ecosystem: docker-compose
     directory: "/e2eTests"
+    groups:
+      all-modules:
+        patterns:
+          - "*"
     schedule:
-      interval: "monthly"
-    registries:
-      - ghcr
-    allow:
-      - dependency-name: "ghcr.io/neicnordic/sensitive-data-archive"
-        versions: [ "vx.x.x", "vx.x.x-doa", "vx.x.x-rabbitmq", "vx.x.x-postgres" ]
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Oslo"
+    commit-message:
+      prefix: "[e2eTests]"
 
   # buildSrc
   - package-ecosystem: gradle
