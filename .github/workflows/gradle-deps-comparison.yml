@@ -36,6 +36,7 @@ jobs:
         git checkout "$HEAD_REF"
         ./gradlew dependencies --no-daemon > "$TMP_AFTER"
 
+        echo "/////////////////////////////////"
         echo "TMP_BEFORE: $TMP_BEFORE"
         echo "TMP_AFTER: $TMP_AFTER"
         
