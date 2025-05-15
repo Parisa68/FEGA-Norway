@@ -41,8 +41,6 @@ updates:
       timezone: "Europe/Oslo"
     commit-message:
       prefix: "[e2eTests]"
-    ignore:
-      - dependency-name: "ghcr.io/neicnordic/sensitive-data-archive"
       
  - package-ecosystem: docker-compose
     directory: "/e2eTests"
