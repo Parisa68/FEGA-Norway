@@ -30,11 +30,11 @@ jobs:
         TMP_AFTER=$(mktemp)
 
         git checkout "$BASE_REF"
-        ./gradlew dependencies --no-daemon > "$TMP_BEFORE"
+        ./gradlew :lib:clearinghouse:dependencies > "$TMP_BEFORE"
 
         echo "Checking out head ref: $HEAD_REF"
         git checkout "$HEAD_REF"
-        ./gradlew dependencies --no-daemon > "$TMP_AFTER"
+        ./gradlew :lib:clearinghouse:dependencies > "$TMP_AFTER"
 
         echo "/////////////////////////////////"
         echo "TMP_BEFORE: $TMP_BEFORE"
