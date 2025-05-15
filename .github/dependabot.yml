@@ -1,10 +1,4 @@
 version: 2
-registries:
-  ghcr:
-    type: "docker-registry"
-    url: "https://ghcr.io"
-    username: "${{ secrets.GHCR_REGISTRY_ACTOR }}"
-    password: "${{ secrets.GHCR_REGISTRY_TOKEN }}"
 updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
