@@ -1,47 +1,46 @@
-name: Compare Dependencies
+name: Dependency Tree Diff on PR Close
 
 on:
   pull_request:
     types: [closed]
 
 jobs:
-  check-deps:
+  dependency-diff:
     if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
-    - name: checkout pr branch
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
 
-    - name: Set up JDK
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '21'
+      - name: Install dependency-tree-diff
+        run: brew install JakeWharton/repo/dependency-tree-diff
 
-    - name: Compare Gradle Dependencies
-      run: |
-        BASE_REF=${{ github.event.pull_request.base.sha }}
-        HEAD_REF=${{ github.event.pull_request.head.sha }}
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21' 
 
-        TMP_BEFORE=$(mktemp)
-        TMP_AFTER=$(mktemp)
+      - name: new.txt
+        run: |
+          ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > new.txt
 
-        git checkout "$BASE_REF"
-        ./gradlew :lib:clearinghouse:dependencies --refresh-dependencies -no-configuration-cache> "$TMP_BEFORE"
+      - name: Checkout main branch
+        run: |
+          git fetch origin main
+          git checkout origin/main
 
-        echo "Checking out head ref: $HEAD_REF"
-        git checkout "$HEAD_REF"
-        ./gradlew :lib:clearinghouse:dependencies --refresh-dependencies -no-configuration-cache > "$TMP_AFTER"
-
-        echo "/////////////////////////////////"
-        echo "TMP_BEFORE: $TMP_BEFORE"
-        echo "TMP_AFTER: $TMP_AFTER"
-        
-        if diff "$TMP_BEFORE" "$TMP_AFTER"; then
-          echo "no"
-        else
-          echo "yes"
-        fi
+      - name: old.txt 
+        run: |
+          ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > old.txt
+          DIFF=$(dependency-tree-diff old.txt new.txt)
+          if [ -z "$DIFF" ]; then
+            echo "No changes."
+          else
+            echo "changes"
+            echo "$DIFF"
+          fi
