@@ -29,11 +29,11 @@ jobs:
         run: |
           ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > new.txt
 
-      - name: Checkout main branch
-        run: |
-          git branch
-          git fetch origin main
-          git checkout origin/main
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 0
 
       - name: old.txt 
         run: |
