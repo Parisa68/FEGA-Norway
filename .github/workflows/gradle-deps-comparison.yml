@@ -10,10 +10,10 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout PR branch
+      - name: Checkout base branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.base.ref }}
           fetch-depth: 0
 
       - name: Install dependency-tree-diff
@@ -25,22 +25,23 @@ jobs:
           distribution: 'temurin'
           java-version: '21' 
 
-      - name: new.txt
-        run: |
-          ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > new.txt
+      - name: Generate old.txt
+        run: ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > /tmp/old.txt
 
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - name: old.txt 
+      - name: Generate new.txt
+        run: ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > /tmp/new.txt
+
+      - name: Compare dependency trees
         run: |
-          ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > old.txt
-          cat old.txt
-          cat new.txt
-          DIFF=$(dependency-tree-diff old.txt new.txt)
+          cat /tmp/old.txt
+          cat /tmp/new.txt
+          DIFF=$(dependency-tree-diff /tmp/old.txt /tmp/new.txt)
           if [ -z "$DIFF" ]; then
             echo "No changes."
           else
