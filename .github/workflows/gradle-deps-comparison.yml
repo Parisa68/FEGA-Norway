@@ -31,12 +31,15 @@ jobs:
 
       - name: Checkout main branch
         run: |
+          git branch
           git fetch origin main
           git checkout origin/main
 
       - name: old.txt 
         run: |
           ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > old.txt
+          cat old.txt
+          cat new.txt
           DIFF=$(dependency-tree-diff old.txt new.txt)
           if [ -z "$DIFF" ]; then
             echo "No changes."
