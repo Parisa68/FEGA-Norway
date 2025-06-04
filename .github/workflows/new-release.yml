@@ -10,7 +10,6 @@ jobs:
   build:
     needs: detect
     runs-on: ubuntu-latest
-    if: ${{ fromJson(needs.detect.outputs.matrix).component != '' && fromJson(needs.detect.outputs.matrix).component != null && fromJson(needs.detect.outputs.matrix).component | length > 0 }}
     strategy:
       matrix:
         component: ${{ fromJson(needs.detect.outputs.changed-components).component }}
