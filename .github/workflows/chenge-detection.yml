@@ -40,18 +40,19 @@ jobs:
         id: set-matrix
         run: |
           components=()
-          if [[ "${{ steps.changes.outputs.lega-commander }}" == "true" ]]; then components+=('"lega-commander"'); fi
-          if [[ "${{ steps.changes.outputs.e2eTests }}" == "true" ]]; then components+=('"e2eTests"'); fi
-          if [[ "${{ steps.changes.outputs.clearinghouse }}" == "true" ]]; then components+=('"clearinghouse"'); fi
-          if [[ "${{ steps.changes.outputs.crypt4gh }}" == "true" ]]; then components+=('"crypt4gh"'); fi
-          if [[ "${{ steps.changes.outputs.tsd-file-api-client }}" == "true" ]]; then components+=('"tsd-file-api-client"'); fi
-          if [[ "${{ steps.changes.outputs.cega-mock }}" == "true" ]]; then components+=('"cega-mock"'); fi
-          if [[ "${{ steps.changes.outputs.localega-tsd-proxy }}" == "true" ]]; then components+=('"localega-tsd-proxy"'); fi
-          if [[ "${{ steps.changes.outputs.mq-interceptor }}" == "true" ]]; then components+=('"mq-interceptor"'); fi
-          if [[ "${{ steps.changes.outputs.tsd-api-mock }}" == "true" ]]; then components+=('"tsd-api-mock"'); fi
+          [[ "${{ steps.changes.outputs.lega-commander }}" == "true" ]] && components+=("lega-commander")
+          [[ "${{ steps.changes.outputs.e2eTests }}" == "true" ]] && components+=("e2eTests")
+          [[ "${{ steps.changes.outputs.clearinghouse }}" == "true" ]] && components+=("clearinghouse")
+          [[ "${{ steps.changes.outputs.crypt4gh }}" == "true" ]] && components+=("crypt4gh")
+          [[ "${{ steps.changes.outputs.tsd-file-api-client }}" == "true" ]] && components+=("tsd-file-api-client")
+          [[ "${{ steps.changes.outputs.cega-mock }}" == "true" ]] && components+=("cega-mock")
+          [[ "${{ steps.changes.outputs.localega-tsd-proxy }}" == "true" ]] && components+=("localega-tsd-proxy")
+          [[ "${{ steps.changes.outputs.mq-interceptor }}" == "true" ]] && components+=("mq-interceptor")
+          [[ "${{ steps.changes.outputs.tsd-api-mock }}" == "true" ]] && components+=("tsd-api-mock")
 
-          json=$(jq -n --argjson arr "[${components[*]}]" '$arr')
-          echo "matrix=$json" >> $GITHUB_OUTPUT
+          json=$(printf '%s\n' "${components[@]}" | jq -R . | jq -s '{component: .}')
+          
+          echo "matrix=${json}" >> "$GITHUB_OUTPUT"
         shell: bash
 
   build:
