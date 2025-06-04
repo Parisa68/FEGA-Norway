@@ -2,6 +2,10 @@ name: Build Changed Components
 
 on:
   workflow_call:
+    outputs:
+      changed-components:
+        description: "The changed components matrix"
+        value: ${{ jobs.detect-changes.outputs.matrix }}
 
 jobs:
   detect-changes:
