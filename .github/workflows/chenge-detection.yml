@@ -59,14 +59,3 @@ jobs:
           echo "${json_matrix}" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
         shell: bash
-
-  build:
-    needs: detect-changes
-    if: ${{ fromJson(needs.detect-changes.outputs.matrix) != '[]' }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        component: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
-    steps:
-      - name: print
-        run: echo "${{ matrix.component }}"
