@@ -14,7 +14,10 @@ jobs:
       matrix:
         component: ${{ fromJson(needs.detect.outputs.changed-components).component }}
     steps:
-      - name: Print  output
-        run: echo "length(fromJson(needs.detect.outputs.changed-components).component)"
+      - name: Check if array is empty
+        run: |
+          echo "Component array: ${{ toJson(fromJson(needs.detect.outputs.changed-components).component) }}"
+          echo "Is empty array: ${{ fromJson(needs.detect.outputs.changed-components).component == '[]' }}"
+          echo "Array equals empty: ${{ toJson(fromJson(needs.detect.outputs.changed-components).component) == '[]' }}"
       - name: Print 
         run: echo "${{ matrix.component }}"
