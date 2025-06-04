@@ -5,7 +5,7 @@ on:
 
 jobs:
   detect:
-    uses: ./.github/workflows/change-detection.yml
+    uses: ./.github/workflows/chenge-detection.yml
 
   build:
     needs: detect
