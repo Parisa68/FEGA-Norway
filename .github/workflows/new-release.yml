@@ -24,7 +24,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_PREFIX: ${{matrix.component}}-
-
+          DRY_RUN: true
+          VERBOSE: true
+          DEFAULT_BUMP: patch
       - name: setup java
         if: ${{ matrix.component == 'clearinghouse' || matrix.component == 'crypt4gh' || matrix.component == 'tsd-file-api-client' }}
         uses: actions/setup-java@v4
