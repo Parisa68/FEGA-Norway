@@ -1,7 +1,7 @@
 name: Build Changed Components
 
 on:
-  push:
+  workflow_call:
 
 jobs:
   detect-changes:
