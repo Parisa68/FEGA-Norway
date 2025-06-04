@@ -1,7 +1,7 @@
 name: NEW Release
 
 on:
-  push:
+  pull_request: 
 
 jobs:
   detect:
@@ -19,14 +19,21 @@ jobs:
         with:
           fetch-depth: 0
       - name: Get new Version
-        id: get-new-tag
+        id: generate-new-tag
         uses: anothrNick/github-tag-action@1.73.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_PREFIX: ${{matrix.component}}-
           DRY_RUN: true
-          VERBOSE: true
           DEFAULT_BUMP: patch
+      - name: Extract new new version
+        id: new-tag
+        run: |
+          full_version="${{ steps.generate-new-tag.outputs.new_tag }}"
+          component="${{ matrix.component }}"
+          version="${full_version#"$component"-}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          
       - name: setup java
         if: ${{ matrix.component == 'clearinghouse' || matrix.component == 'crypt4gh' || matrix.component == 'tsd-file-api-client' }}
         uses: actions/setup-java@v4
@@ -36,7 +43,7 @@ jobs:
       - name: publish jar files
         if: ${{ matrix.component == 'clearinghouse' || matrix.component == 'crypt4gh' || matrix.component == 'tsd-file-api-client' }}
         run: |
-          ./gradlew :lib:${{matrix.component}}:publish -Pversion=${{ steps.get-new-tag.outputs.new_tag }}
+          ./gradlew :lib:${{matrix.component}}:publish -Pversion=${{ steps.new-tag.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -57,13 +64,13 @@ jobs:
         if: ${{ matrix.component == 'localega-tsd-proxy' || matrix.component == 'tsd-api-mock' || matrix.component == 'cega-mock' || matrix.component == 'mq-interceptor' }}
         run: |
           docker pull ghcr.io/${{ env.repo_name }}:${{matrix.component}}-${{ github.event.number }}
-          docker tag ghcr.io/${{ env.repo_name }}:${{matrix.component}}-${{ github.event.number }} ghcr.io/${{ env.repo_name }}:${{matrix.component}}-${{ steps.get-new-tag.outputs.new_tag }}
-          docker push ghcr.io/${{ env.repo_name }}:${{matrix.component}}-${{ steps.get-new-tag.outputs.new_tag }}
+          docker tag ghcr.io/${{ env.repo_name }}:${{matrix.component}}-${{ github.event.number }} ghcr.io/${{ env.repo_name }}:${{matrix.component}}-${{ steps.new-tag.outputs.version }}
+          docker push ghcr.io/${{ env.repo_name }}:${{matrix.component}}-${{ steps.new-tag.outputs.version }}
 
       - name: Create and push new tag
         if: ${{matrix.component == 'lega-commander'}}
         run: |
-          git tag v${{ steps.get-new-tag.outputs.new_tag }} ${{ github.sha }}
+          git tag v${{ steps.new-tag.outputs.version }} ${{ github.sha }}
 
       - name: Run GoReleaser
         if: ${{matrix.component == 'lega-commander'}}
@@ -81,8 +88,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          tag_name: "${{matrix.component}}-${{ steps.get-new-tag.outputs.new_tag }}"
+          tag_name: "${{matrix.component}}-${{ steps.new-tag.outputs.version }}"
           prerelease: false
-
-
-
