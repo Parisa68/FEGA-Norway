@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        component: ${{ fromJson(needs.detect.outputs.matrix).component }}
+        component: ${{ fromJson(needs.detect.outputs.changed-components).component }}
     steps:
       - name: Print 
         run: echo "${{ matrix.component }}"
