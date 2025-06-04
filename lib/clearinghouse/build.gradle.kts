@@ -6,7 +6,7 @@ plugins {
     id("jsonwebtoken")
     id("okhttp")
 }
-// hi
+// hi, hello
 group = "no.elixir"
 
 repositories {
