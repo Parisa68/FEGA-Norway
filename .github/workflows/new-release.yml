@@ -59,7 +59,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.MYTOKEN }}
       - name: Retag
         if: ${{ matrix.component == 'localega-tsd-proxy' || matrix.component == 'tsd-api-mock' || matrix.component == 'cega-mock' || matrix.component == 'mq-interceptor' }}
         run: |
