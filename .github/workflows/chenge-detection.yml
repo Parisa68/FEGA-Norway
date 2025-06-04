@@ -50,9 +50,8 @@ jobs:
           [[ "${{ steps.changes.outputs.mq-interceptor }}" == "true" ]] && components+=("mq-interceptor")
           [[ "${{ steps.changes.outputs.tsd-api-mock }}" == "true" ]] && components+=("tsd-api-mock")
 
-          json=$(printf '%s\n' "${components[@]}" | jq -R . | jq -s '{component: .}')
-          
-          echo "matrix=${json}" >> "$GITHUB_OUTPUT"
+          json_matrix=$(jq -n --argjson arr "$(printf '%s\n' "${components[@]}" | jq -R . | jq -s .)" '{component: $arr}')
+          echo "matrix=${json_matrix}" | tee -a $GITHUB_OUTPUT
         shell: bash
 
   build:
