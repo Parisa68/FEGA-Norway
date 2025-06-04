@@ -10,10 +10,11 @@ jobs:
   build:
     needs: detect
     runs-on: ubuntu-latest
-    if: ${{ fromJson(needs.detect.outputs.matrix).component != [] }}
     strategy:
       matrix:
         component: ${{ fromJson(needs.detect.outputs.changed-components).component }}
     steps:
+      - name: Print  output
+        run: echo "${{ needs.detect.outputs.changed-components }}"
       - name: Print 
         run: echo "${{ matrix.component }}"
