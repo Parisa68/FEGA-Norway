@@ -15,6 +15,6 @@ jobs:
         component: ${{ fromJson(needs.detect.outputs.changed-components).component }}
     steps:
       - name: Print  output
-        run: echo "${{ fromJson(needs.detect.outputs.changed-components).component }}"
+        run: echo "length(fromJson(needs.detect.outputs.changed-components).component)"
       - name: Print 
         run: echo "${{ matrix.component }}"
