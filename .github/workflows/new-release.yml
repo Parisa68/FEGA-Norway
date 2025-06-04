@@ -14,15 +14,15 @@ jobs:
       matrix:
         component: ${{ fromJson(needs.detect.outputs.changed-components).component }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Get new Version
         id: get-new-tag
         uses: anothrNick/github-tag-action@1.73.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_PREFIX: ${{matrix.component}}
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: setup java
         if: ${{ matrix.component == 'clearinghouse' || matrix.component == 'crypt4gh' || matrix.component == 'tsd-file-api-client' }}
         uses: actions/setup-java@v4
@@ -79,4 +79,6 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           tag_name: "${{matrix.component}}-${{ steps.get-new-tag.outputs.new_tag }}"
           prerelease: false
+
+
 
