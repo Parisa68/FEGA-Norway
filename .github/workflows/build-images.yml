@@ -8,7 +8,9 @@ on:
       - 'services/tsd-api-mock/**'
     branches:
       - main
-
+permissions:
+  contents: read
+  packages: write
 jobs:
   detect-changes:
     runs-on: ubuntu-latest
