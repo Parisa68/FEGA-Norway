@@ -1,0 +1,18 @@
+name: NEW Release
+
+on:
+  push:
+
+jobs:
+  detect:
+    uses: ./.github/workflows/change-detection.yml
+
+  build:
+    needs: detect
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        component: ${{ fromJson(needs.detect.outputs.matrix).component }}
+    steps:
+      - name: Print 
+        run: echo "${{ matrix.component }}"
