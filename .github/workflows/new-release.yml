@@ -17,7 +17,7 @@ jobs:
       - name: get-new-tag
         uses: ./.github/workflows/read-new-version.yml
         with:
-          component_name: matrix.component
+          component_name: ${{matrix.component}}
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
