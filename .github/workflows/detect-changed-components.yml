@@ -43,7 +43,7 @@ jobs:
       - name: Set matrix based on changes
         id: set-matrix
         run: |
-          components=()
+          components=("FEGA-Norway")
           [[ "${{ steps.changes.outputs.lega-commander }}" == "true" ]] && components+=("lega-commander")
           [[ "${{ steps.changes.outputs.e2eTests }}" == "true" ]] && components+=("e2eTests")
           [[ "${{ steps.changes.outputs.clearinghouse }}" == "true" ]] && components+=("clearinghouse")
@@ -54,11 +54,7 @@ jobs:
           [[ "${{ steps.changes.outputs.mq-interceptor }}" == "true" ]] && components+=("mq-interceptor")
           [[ "${{ steps.changes.outputs.tsd-api-mock }}" == "true" ]] && components+=("tsd-api-mock")
 
-          if [ ${#components[@]} -eq 0 ]; then
-            json_matrix='{"component": []}'
-          else
-            json_matrix=$(jq -n --argjson arr "$(printf '%s\n' "${components[@]}" | jq -R . | jq -s .)" '{component: $arr}')
-          fi
+          json_matrix=$(jq -n --argjson arr "$(printf '%s\n' "${components[@]}" | jq -R . | jq -s .)" '{component: $arr}')
           echo "matrix<<EOF" >> $GITHUB_OUTPUT
           echo "${json_matrix}" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
