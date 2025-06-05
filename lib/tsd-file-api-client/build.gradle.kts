@@ -4,10 +4,6 @@ plugins {
     id("formatting-conventions")
     id("maven-publish")
 }
-
-
-
-
 group = "elixir.no"
 
 repositories {
