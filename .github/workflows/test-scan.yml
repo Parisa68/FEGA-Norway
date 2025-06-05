@@ -1,11 +1,9 @@
 name: Scan Images
 on:
   pull_request:
-    types: [ closed ]
 
 jobs:
   scan-all:
-    if: github.event.pull_request.merged == true
     name: Scan ${{ matrix.image-name }} Docker Image
     runs-on: ubuntu-latest
     permissions:
