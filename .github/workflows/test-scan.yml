@@ -19,7 +19,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.30.0
         with:
-          image-ref: ghcr.io/parisa68:${{ matrix.image-name }}-93
+          image-ref: ghcr.io/parisa68/fega-norway:${{ matrix.image-name }}-93
           format: "sarif"
           hide-progress: true
           ignore-unfixed: true
