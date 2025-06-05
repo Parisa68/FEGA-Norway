@@ -2,14 +2,9 @@ name: Release
 
 on:
   pull_request:
-    branches:
-      - main
-    types:
-      - closed
 
 jobs:
   detect:
-    if: github.event.pull_request.merged == true
     uses: ./.github/workflows/detect-changed-components.yml
 
   release:
