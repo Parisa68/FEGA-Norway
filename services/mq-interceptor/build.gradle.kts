@@ -7,6 +7,9 @@ val goBuild = tasks.register("goBuild", Exec::class) {
     commandLine("go", "build", "-o", "build/")
 }
 
+
+
+
 tasks.named("build") {
     dependsOn(goBuild)
 }
