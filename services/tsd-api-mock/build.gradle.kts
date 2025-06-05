@@ -3,7 +3,6 @@ plugins {
     id("springboot-conventions")
     id("jsonwebtoken")
 }
-
 group = "no.elixir"
 
 dependencies {
