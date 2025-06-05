@@ -4,6 +4,8 @@ plugins {
     id("jsonwebtoken")
 }
 
+
+
 group = "no.elixir"
 
 dependencies {
