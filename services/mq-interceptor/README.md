@@ -17,10 +17,10 @@
 
 
 
-
+hi
 # MQ-interceptor
 
-MQ-interceptor is a proxy service that transfers messages between two AMQP servers.
+MQ-interceptor is a proxy service that transfers messages between two AMQP servers. 
 
 In the [setup proposed by EGA](https://localega.readthedocs.io/en/latest/amqp.html#connection-to-central-ega), messages are automatically passed between the Central EGA message server 
 and a Local EGA (federated) message server via [federated queues](https://www.rabbitmq.com/docs/federation) or with the use of [shovels](https://www.rabbitmq.com/docs/shovel). 
