@@ -1,6 +1,6 @@
 release:
     github:
-        owner: ELIXIR-NO
+        owner: Parisa68
         name: FEGA-Norway
     name_template: "{{.ProjectName}}-{{.Version}}-assets"
 
