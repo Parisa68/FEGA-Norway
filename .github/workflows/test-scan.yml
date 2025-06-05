@@ -1,0 +1,32 @@
+name: Scan Images
+on:
+  pull_request:
+    types: [ closed ]
+
+jobs:
+  scan-all:
+    if: github.event.pull_request.merged == true
+    name: Scan All Docker Images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    strategy:
+      matrix:
+        image-name: [ 'mq-interceptor', 'tsd-api-mock', 'localega-tsd-proxy', 'cega-mock' ]
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          image-ref: ghcr.io/parisa68:${{ matrix.image-name }}-93
+          format: "sarif"
+          hide-progress: true
+          ignore-unfixed: true
+          output: '${{ matrix.image-name }}-results.sarif'
+          severity: "CRITICAL,HIGH"
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: '${{ matrix.image-name }}-results.sarif'
+          category: ${{ matrix.image-name }}
