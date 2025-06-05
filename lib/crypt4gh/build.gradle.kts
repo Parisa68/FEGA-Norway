@@ -34,7 +34,6 @@ extraJavaModuleInfo {
 tasks.test {
     useJUnitPlatform()
 }
-
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
