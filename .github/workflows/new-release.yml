@@ -1,10 +1,15 @@
-name: NEW Release
+name: Release
 
 on:
-  pull_request: 
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 
 jobs:
   detect:
+    if: github.event.pull_request.merged == true
     uses: ./.github/workflows/detect-changed-components.yml
 
   release:
@@ -26,6 +31,9 @@ jobs:
           TAG_PREFIX: ${{matrix.component}}-
           DRY_RUN: true
           DEFAULT_BUMP: patch
+          MAJOR_STRING_TOKEN: '#major_${{ matrix.component }}'
+          MINOR_STRING_TOKEN: '#minor_${{ matrix.component }}'
+          PATCH_STRING_TOKEN: '#patch_${{ matrix.component }}'
       - name: Extract new new version
         id: new-tag
         run: |
@@ -59,7 +67,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.MYTOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Retag
         if: ${{ matrix.component == 'localega-tsd-proxy' || matrix.component == 'tsd-api-mock' || matrix.component == 'cega-mock' || matrix.component == 'mq-interceptor' }}
         run: |
