@@ -28,7 +28,7 @@ dependencies {
     testImplementation("org.bouncycastle:bcprov-jdk15to18:1.80")
     testImplementation("org.bouncycastle:bcpkix-jdk15to18:1.80")
 }
-// cmt
+// cmt test
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
