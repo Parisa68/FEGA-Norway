@@ -1,4 +1,4 @@
-# E2E Test Setup
+# E2E Test Setup:
 
 This Gradle submodule focuses on running the e2e test setup of
 FEGA Norway. The following figure depicts the high-level overview
