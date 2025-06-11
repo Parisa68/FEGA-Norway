@@ -1,6 +1,5 @@
 
 # lega-commander
-
 ## Installation / Update
 
 ### Manual Installation (Linux/macOS)
