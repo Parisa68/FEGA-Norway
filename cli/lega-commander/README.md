@@ -1,6 +1,4 @@
 
-
-
 # lega-commander
 
 ## Installation / Update
