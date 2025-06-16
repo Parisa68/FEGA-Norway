@@ -28,7 +28,7 @@ services:
   mq:
     container_name: mq
     hostname: mq
-    image: rabbitmq:3.12.13-management-alpine
+    image: rabbitmq:4.1.1-management-alpine
     ports:
       - "5672:5672"
       - "15671:15671"
@@ -149,7 +149,7 @@ services:
   db:
     container_name: db
     hostname: db
-    image: ghcr.io/neicnordic/sensitive-data-archive:v0.3.47-postgres
+    image: ghcr.io/neicnordic/sensitive-data-archive:v2.0.13-postgres
     ports:
       - "5432:5432"
     environment:
@@ -176,7 +176,7 @@ services:
   ingest:
     container_name: ingest
     hostname: ingest
-    image: ghcr.io/neicnordic/sensitive-data-archive:v0.3.47
+    image: ghcr.io/neicnordic/sensitive-data-archive:v2.0.13
     depends_on:
       file-orchestrator:
         condition: service_healthy
@@ -226,7 +226,7 @@ services:
   verify:
     container_name: verify
     hostname: verify
-    image: ghcr.io/neicnordic/sensitive-data-archive:v0.3.47
+    image: ghcr.io/neicnordic/sensitive-data-archive:v2.0.13
     depends_on:
       file-orchestrator:
         condition: service_healthy
@@ -275,7 +275,7 @@ services:
   finalize:
     container_name: finalize
     hostname: finalize
-    image: ghcr.io/neicnordic/sensitive-data-archive:v0.3.47
+    image: ghcr.io/neicnordic/sensitive-data-archive:v2.0.13
     depends_on:
       file-orchestrator:
         condition: service_healthy
@@ -317,7 +317,7 @@ services:
   mapper:
     container_name: mapper
     hostname: mapper
-    image: ghcr.io/neicnordic/sensitive-data-archive:v0.3.47
+    image: ghcr.io/neicnordic/sensitive-data-archive:v2.0.13
     depends_on:
       file-orchestrator:
         condition: service_healthy
@@ -360,7 +360,7 @@ services:
   intercept:
     container_name: intercept
     hostname: intercept
-    image: ghcr.io/neicnordic/sensitive-data-archive:v0.3.47
+    image: ghcr.io/neicnordic/sensitive-data-archive:v2.0.13
     depends_on:
       file-orchestrator:
         condition: service_healthy
@@ -398,7 +398,7 @@ services:
   doa:
     container_name: doa
     hostname: doa
-    image: ghcr.io/neicnordic/sda-doa:v1.6.175
+    image: ghcr.io/neicnordic/sda-doa:v1.6.188
     depends_on:
       file-orchestrator:
         condition: service_healthy
@@ -435,7 +435,7 @@ services:
   cegamq:
     container_name: cegamq
     hostname: cegamq
-    image: rabbitmq:3.12.13-management-alpine
+    image: rabbitmq:4.1.1-management-alpine
     environment:
       - RABBITMQ_CONFIG_FILE=/etc/rabbitmq/conf/cega
       - RABBITMQ_ENABLED_PLUGINS_FILE=/etc/rabbitmq/conf/cega.plugins
