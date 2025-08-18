@@ -20,7 +20,7 @@ jobs:
       mq-interceptor: ${{ steps.changes.outputs.mq-interceptor }}
       tsd-api-mock: ${{ steps.changes.outputs.tsd-api-mock }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dorny/paths-filter@v3
         id: changes
         with:
@@ -55,7 +55,7 @@ jobs:
     needs: get-new-tag-clearinghouse
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           java-version: '21'
@@ -90,7 +90,7 @@ jobs:
     needs: get-new-tag-crypt4gh
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           java-version: '21'
@@ -122,7 +122,7 @@ jobs:
     needs: get-new-tag-tsd-file-api-client
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           java-version: '21'
@@ -191,7 +191,7 @@ jobs:
     needs: get-new-tag-tsd-api-mock
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-java@v4
         with:
           java-version: '21'
@@ -242,7 +242,7 @@ jobs:
     needs: get-new-tag-cega-mock
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Bump patch version for cega-mock
         id: bump_cega_mock_version
         run: echo "new_cega_mock_version=${{ needs.get-new-tag-cega-mock.outputs.new_version }}" >> $GITHUB_OUTPUT
@@ -287,7 +287,7 @@ jobs:
     needs: get-new-tag-mq-interceptor
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Bump patch version for mq-interceptor
         id: bump_mq_interceptor_version
         run: echo "new_mq_interceptor_version=${{ needs.get-new-tag-mq-interceptor.outputs.new_version }}" >> $GITHUB_OUTPUT
@@ -333,7 +333,7 @@ jobs:
         with:
           go-version: 1.24
         id: go
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Bump patch version for lega-commander
@@ -369,7 +369,7 @@ jobs:
     needs: get-new-tag-e2eTests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Bump patch version for e2eTests
         id: bump_e2eTests_version
         run: echo "new_e2eTests_version=${{ needs.get-new-tag-e2eTests.outputs.new_version }}" >> $GITHUB_OUTPUT
@@ -389,7 +389,7 @@ jobs:
     needs: get-new-tag-fega-norway
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Bump patch version for FEGA-Norway
         id: bump_fega_norway_version
         run: echo "new_fega_norway_version=${{ needs.get-new-tag-fega-norway.outputs.new_version }}" >> $GITHUB_OUTPUT
