@@ -15,7 +15,7 @@ jobs:
         image-name: [ 'mq-interceptor', 'tsd-api-mock', 'localega-tsd-proxy', 'cega-mock' ]
     steps:
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: ghcr.io/parisa68/fega-norway:${{ matrix.image-name }}-93
           format: "sarif"
