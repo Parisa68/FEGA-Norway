@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 COPY build/libs/tsd-api-mock*.jar /app/app.jar
 CMD mkdir -p /etc/jwt/public_keys
 WORKDIR /app
