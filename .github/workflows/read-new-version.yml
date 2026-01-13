@@ -20,7 +20,7 @@ jobs:
       new_version: ${{ steps.set_output.outputs.new_version }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Fetch all tags
         run: git fetch --tags

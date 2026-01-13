@@ -17,7 +17,7 @@ jobs:
       mq-interceptor: ${{ steps.changes.outputs.mq-interceptor }}
       tsd-api-mock: ${{ steps.changes.outputs.tsd-api-mock }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dorny/paths-filter@v3
         id: changes
         with:
@@ -58,7 +58,7 @@ jobs:
       matrix:
         component: [localega-tsd-proxy, cega-mock, mq-interceptor]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Bump patch version for ${{ matrix.component }}
         id: bump_version

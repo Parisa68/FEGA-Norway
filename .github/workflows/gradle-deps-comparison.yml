@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout base branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.base.ref }}
           fetch-depth: 0
@@ -29,7 +29,7 @@ jobs:
         run: ./gradlew :lib:clearinghouse:dependencies --configuration runtimeClasspath > /tmp/old.txt
 
       - name: Checkout PR branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
