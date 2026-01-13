@@ -1,4 +1,13 @@
 version: 2
+multi-ecosystem-groups:
+  java-services:
+    schedule:
+      interval: daily
+
+  java-libs:
+    schedule:
+      interval: daily
+      
 updates:
   - package-ecosystem: github-actions
     directory: /
@@ -63,39 +72,27 @@ updates:
       all-modules:
         patterns:
           - '*'
-    schedule:
-      interval: weekly
-      day: monday
-      time: '09:00'
-      timezone: Europe/Oslo
     commit-message:
       prefix: '[Clearinghouse]'
+    multi-ecosystem-group: java-libs
   - package-ecosystem: gradle
     directory: /lib/crypt4gh
     groups:
       all-modules:
         patterns:
           - '*'
-    schedule:
-      interval: weekly
-      day: monday
-      time: '09:00'
-      timezone: Europe/Oslo
     commit-message:
       prefix: '[Crypt4gh]'
+    multi-ecosystem-group: java-libs
   - package-ecosystem: gradle
     directory: /lib/tsd-file-api-client
     groups:
       all-modules:
         patterns:
           - '*'
-    schedule:
-      interval: weekly
-      day: monday
-      time: '09:00'
-      timezone: Europe/Oslo
     commit-message:
       prefix: '[TSD-File-API-Client]'
+    multi-ecosystem-group: java-libs
   - package-ecosystem: gradle
     directory: /services/tsd-api-mock
     groups:
