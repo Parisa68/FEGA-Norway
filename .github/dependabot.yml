@@ -77,6 +77,7 @@ updates:
     commit-message:
       prefix: '[Clearinghouse]'
     multi-ecosystem-group: java-libs
+    patterns: ["*"]
   - package-ecosystem: gradle
     directory: /lib/crypt4gh
     groups:
@@ -85,6 +86,7 @@ updates:
           - '*'
     commit-message:
       prefix: '[Crypt4gh]'
+    patterns: ["*"]
     multi-ecosystem-group: java-libs
   - package-ecosystem: gradle
     directory: /lib/tsd-file-api-client
@@ -95,6 +97,7 @@ updates:
     commit-message:
       prefix: '[TSD-File-API-Client]'
     multi-ecosystem-group: java-libs
+    patterns: ["*"]
   - package-ecosystem: gradle
     directory: /services/tsd-api-mock
     groups:
