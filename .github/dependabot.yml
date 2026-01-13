@@ -1,9 +1,5 @@
 version: 2
 multi-ecosystem-groups:
-  java-services:
-    schedule:
-      interval: daily
-
   java-libs:
     schedule:
       interval: daily
@@ -92,19 +88,7 @@ updates:
           - '*'
     multi-ecosystem-group: java-libs
     patterns: ["*"]
-  - package-ecosystem: gradle
-    directory: /services/tsd-api-mock
-    groups:
-      all-modules:
-        patterns:
-          - '*'
-    schedule:
-      interval: weekly
-      day: monday
-      time: '09:00'
-      timezone: Europe/Oslo
-    commit-message:
-      prefix: '[TSD-API-mock]'
+    
   - package-ecosystem: docker
     directory: /services/tsd-api-mock
     schedule:
@@ -115,7 +99,9 @@ updates:
     commit-message:
       prefix: '[TSD-API-mock]'
   - package-ecosystem: gradle
-    directory: /services/localega-tsd-proxy
+    directories: 
+      - /services/localega-tsd-proxy
+      - /services/tsd-api-mock
     groups:
       all-modules:
         patterns:
@@ -126,7 +112,7 @@ updates:
       time: '09:00'
       timezone: Europe/Oslo
     commit-message:
-      prefix: '[Localega-TSD-Proxy]'
+      prefix: '[java-services]'
   - package-ecosystem: docker
     directory: /services/localega-tsd-proxy
     schedule:
