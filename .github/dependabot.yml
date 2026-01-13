@@ -1,6 +1,6 @@
 version: 2
 multi-ecosystem-groups:
-  java-libs:
+  cmd-libs:
     schedule:
       interval: daily
       time: '09:10'
@@ -70,7 +70,7 @@ updates:
       all-modules:
         patterns:
           - '*'
-    multi-ecosystem-group: java-libs
+    multi-ecosystem-group: cmd-libs
     patterns: ["*"]
   - package-ecosystem: gradle
     directory: /lib/crypt4gh
@@ -79,14 +79,14 @@ updates:
         patterns:
           - '*'
     patterns: ["*"]
-    multi-ecosystem-group: java-libs
+    multi-ecosystem-group: cmd-libs
   - package-ecosystem: gradle
     directory: /lib/tsd-file-api-client
     groups:
       all-modules:
         patterns:
           - '*'
-    multi-ecosystem-group: java-libs
+    multi-ecosystem-group: cmd-libs
     patterns: ["*"]
     
   - package-ecosystem: docker
@@ -172,10 +172,9 @@ updates:
       all-modules:
         patterns:
           - '*'
-    schedule:
-      interval: weekly
-      day: monday
-      time: '09:00'
-      timezone: Europe/Oslo
-    commit-message:
-      prefix: '[Lega-Commander]'
+    groups:
+      all-modules:
+        patterns:
+          - '*'
+    multi-ecosystem-group: cmd-libs
+    patterns: ["*"]
