@@ -44,7 +44,7 @@ jobs:
           REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           echo "repo_name=$REPO_NAME" >> $GITHUB_ENV
       - name: Log in to the Github Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -79,7 +79,7 @@ jobs:
           REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           echo "repo_name=$REPO_NAME" >> $GITHUB_ENV
       - name: Log in to the Github Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -112,7 +112,7 @@ jobs:
           REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           echo "repo_name=$REPO_NAME" >> $GITHUB_ENV
       - name: Log in to the Github Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -151,7 +151,7 @@ jobs:
           REPO_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           echo "repo_name=$REPO_NAME" >> $GITHUB_ENV
       - name: Log in to the Github Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
