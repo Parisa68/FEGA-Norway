@@ -59,7 +59,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.MYTOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./services/localega-tsd-proxy
           push: true
@@ -94,7 +94,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.MYTOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./services/mq-interceptor
           push: true
@@ -129,7 +129,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.MYTOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./services/cega-mock
           push: true
@@ -170,7 +170,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.MYTOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./services/tsd-api-mock
           push: true
