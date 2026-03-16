@@ -18,7 +18,7 @@ jobs:
       tsd-api-mock: ${{ steps.changes.outputs.tsd-api-mock }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
+      - uses: dorny/paths-filter@v4
         id: changes
         with:
           filters: |
